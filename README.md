@@ -23,3 +23,11 @@ with example codes covered in the lecture.  This repo also contains
 the install_anaconda3 script, to simplify installation on various unix
 flavors. You can also head over to https://www.anaconda.com/ and do it
 yourself.
+
+### Slides
+
+A link to the slides is here, with the caveat of course I'm probably working
+on them as you read this:
+
+
+https://docs.google.com/presentation/d/1m7E1YHG9R1uwwJS7i7MHGwpsL3pILK6vvhLpTr1KUIg/edit?usp=sharing
