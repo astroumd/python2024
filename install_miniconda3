@@ -1,0 +1,85 @@
+#! /bin/csh -f
+#
+#  Install a miniconda3 python for astroquery.alma, and optionally casa6beta
+#  (with casa6=0 takes about 3 mins with a good internet connection)
+#
+
+set sys = `uname -s`
+
+#           68MB
+if ($sys == Linux) then
+  set mc3 = https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+else if ($sys == Darwin) then
+  set mc3 = https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+else
+  echo Bad sys=$sys
+  exit 1
+endif  
+set msh   = $mc3:t
+set dir   = `pwd`/miniconda3
+set casa6 = 0
+set conda = 1
+set pip   = 1
+
+# you better know what you are doing here
+foreach arg ($*)
+  set $arg
+end
+
+if (! -e $msh) then
+  wget $mc3
+  if ($status) then
+    curl $mc3 -o $msh
+    if ($status) exit 1
+  endif
+else
+  echo Found $msh
+endif
+
+bash $msh -b -p $dir
+
+setenv PATH "$dir/bin:$PATH"
+
+if ($conda) conda update -y conda             # on Ubuntu 18.04.2 LTS this now causes failure when casa6=1
+if ($pip)   pip install --upgrade pip
+
+if (1) then
+  # too many times my /tmp isn't big enough
+  mkdir -p tmp
+  setenv TMPDIR `pwd`/tmp
+endif
+
+
+echo "set path = ($dir/bin "'$path); rehash'  >> python_start.csh
+echo "export PATH=${dir}/bin:"'$PATH'         >> python_start.sh
+
+echo casa6=$casa6
+if ($casa6) conda install -y python=3.6.8
+
+conda install -y ipython numpy scipy matplotlib notebook jupyter astropy
+
+if ($casa6) then
+  echo "casa6: pip install casatools and casatasks... this will download 740MB"
+  pip install --extra-index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple casatools
+  pip install --extra-index-url https://casa-pip.nrao.edu:443/repository/pypi-group/simple casatasks
+endif
+
+
+# pip install astroquery
+# conda -c astropy astroquery
+
+# install the latest (ALMA is broken in pip/conda, it's too old)
+if (-d astroquery) then
+  source python_start.csh
+  cd astroquery
+  python setup.py install
+else if (1) then
+  source python_start.csh
+  git clone https://github.com/astropy/astroquery
+  cd astroquery
+  python setup.py install
+else
+  pip install --upgrade --pre astroquery
+endif  
+
+pip install image_registration radio_beam reproject spectral_cube
