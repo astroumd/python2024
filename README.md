@@ -27,6 +27,8 @@ yourself.
 There is even a lightweight **install_miniconda3** script, in case you
 want a handcrafted version that installs in 15 seconds.
 
+Also consider the relative new https://github.com/jupyterlab/jupyterlab-desktop
+
 ### Slides
 
 A link to the slides is here, with the caveat of course I'm probably working
