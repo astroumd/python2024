@@ -1,26 +1,19 @@
 #! /usr/bin/env bash
 #
-#  Install a miniconda3 python 
+#  Install a miniconda3 python .   See also install_anaconda3
 #
-
-# some examples    @todo  fix this like done in install_anaconda3
-url=https://repo.anaconda.com/miniconda/Miniconda3-py39_24.5.0-0-Linux-x86_64.sh
-url=https://repo.anaconda.com/miniconda/Miniconda3-py39_24.7.1-0-MacOSX-arm64.sh
-url=https://repo.anaconda.com/miniconda/Miniconda3-py39_24.7.1-0-MacOSX-x86_64.sh
-url=https://repo.anaconda.com/miniconda/Miniconda3-py39_24.7.1-0-Linux-x86_64.sh
-url=https://repo.anaconda.com/miniconda/Miniconda3-py311_24.7.1-0-Linux-x86_64.sh
-url=https://repo.anaconda.com/miniconda/Miniconda3-py312_24.5.0-0-Linux-x86_64.sh
-url=https://repo.anaconda.com/miniconda/Miniconda3-py312_24.7.1-0-Linux-x86_64.sh
 
 #--HELP
 #  default parameters
-    url=https://repo.anaconda.com/miniconda/Miniconda3-%s-%s-%s.sh
-                               # various miniconda versions available:
-version=py39_24.5.0-0          # 3.9.x
-version=py39_24.7.1-0          # 3.9.x
-version=py311_24.7.1-0         # 3.11.x
-version=py312_24.5.0-0         # 3.12.4
-version=py312_24.7.1-0         # 3.12.4
+    url=https://repo.anaconda.com/miniconda/Miniconda3-py%s-%s-%s.sh
+   url1=https://repo.anaconda.com/miniconda/Miniconda3-latest-%s-%s.sh
+    # various miniconda versions available:
+version=latest                 # !! special. watch out for caching this file !!
+version=38_23.11.0-2           # 3.8.18
+version=39_24.7.1-0            # 3.9.19
+version=310_24.7.1-0           # 3.10.15
+version=311_24.7.1-0           # 3.11.9
+version=312_24.7.1-0           # 3.12.4
 
     dir=$(pwd)/miniconda3      # where miniconda will be located
    wget=wget                   # use wgetc is you have my cashing version (wget=curl is also allowed)
@@ -47,7 +40,11 @@ if [ "$os" = "Darwin" ]; then
     os=MacOSX
 fi
 
-mc3=$(printf $url $version $os $cpu)      # @todo to be implemented
+if [ $version = "latest" ]; then
+    mc3=$(printf $url1 $os $cpu)
+else
+    mc3=$(printf $url $version $os $cpu)      # @todo to be implemented
+fi
 msh=$(basename $mc3)
 
 if [ $dry = 1 ]; then
