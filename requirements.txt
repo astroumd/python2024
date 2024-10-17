@@ -1,0 +1,24 @@
+# sample packages to install using:    
+#       pip install -r requirements.txt
+numpy
+scipy
+pandas
+astropy
+matplotlib
+jupyter
+docopt
+pyds9
+aplpy
+#        less important perhaps
+jupytext
+ipdb
+# jupyterlab
+# jupyterlab-server
+# virtualenv   <-- venv will do ?
+# hatch
+# jupyter-console
+# jupyter-server
+# ipywidgets
+# ipykernel
+# nbconvert
+numpydoc
