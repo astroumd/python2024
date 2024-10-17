@@ -20,9 +20,12 @@ We will cover
 
 A github repo https://github.com/astroumd/python2024 will be available
 with example codes covered in the lecture.  This repo also contains
-the install_anaconda3 script, to simplify installation on various unix
+the **install_anaconda3** script, to simplify installation on various unix
 flavors. You can also head over to https://www.anaconda.com/ and do it
 yourself.
+
+There is even a lightweight **install_miniconda3** script, in case you
+want a handcrafted version that installs in 15 seconds.
 
 ### Slides
 
@@ -77,4 +80,8 @@ Here is a sample session:
        # 
        local%  xdg-open http://localhost:8086/tree?token=blablablabla
 
+## Fun Things?
 
+* **The Vesuvius Challenge**  :  https://scrollprize.org/
+  * https://scrollprize.org/data
+  * https://colab.research.google.com/github/ScrollPrize/vesuvius/blob/main/notebooks/example1_data_access.ipynb
