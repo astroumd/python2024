@@ -73,6 +73,7 @@ if [ ! -e $msh ]; then
     exit 0
 fi
 
+echo "Using $msh"
 bash $msh -b -p $dir
 
 export PATH="$dir/bin:$PATH"
